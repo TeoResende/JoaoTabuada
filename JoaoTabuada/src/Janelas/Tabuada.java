@@ -445,7 +445,7 @@ public class Tabuada {
 					}
 					
 					try{
-						Thread.sleep(30000);
+						Thread.sleep(8000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
