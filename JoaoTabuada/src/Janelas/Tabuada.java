@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import Banco.CRUDRanking;
+import java.awt.event.WindowAdapter;
 
 public class Tabuada {
 
@@ -39,7 +40,7 @@ public class Tabuada {
 	private JButton btnReset;
 	private JLabel lblNewLabel_1;
 
-	static String nome;
+	public static String nome = "Sem nome";
     static int id = 0;
 	public int acertos=0,erros=0;
 	public int errosJogador = 0;
@@ -51,6 +52,7 @@ public class Tabuada {
 	int jogoEmAndamento = 0;
 	int enter = 0;
 	int ativado = 0;
+	public static int nivel = 0;
 
 	/**
 	 * Launch the application.
@@ -88,6 +90,13 @@ public class Tabuada {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				new CRUDRanking().removeZerado();
+				System.out.println("Removendo zerados");
+			}
+		});
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.addWindowFocusListener(new WindowFocusListener() {
 			public void windowGainedFocus(WindowEvent arg0) {
@@ -109,10 +118,10 @@ public class Tabuada {
 		frame.getContentPane().add(lblNome);
 		
 		
-		while(nome==null || nome.length()<3 || nome.length()>10)
+		/*while(nome==null || nome.length()<3 || nome.length()>10)
 		{
 			nome = JOptionPane.showInputDialog("\n  Entre com seu nome: \n");
-		}
+		}*/
 		
 		new CRUDRanking().novoJogador(nome, acertos); //salva nome no banco
 		
@@ -125,12 +134,10 @@ public class Tabuada {
 			e1.printStackTrace();
 		}
 
-		
 		frame.setTitle(" ..::  MaxTabuadaGame  ::..");
 		lblNome.setText(nome);
 		jogando = true;
 		jogoEmAndamento = 1;
-		
 
 		JLabel lblAcerto = new JLabel("Acertos  :");
 		lblAcerto.setForeground(Color.WHITE);
@@ -519,18 +526,18 @@ public class Tabuada {
 		Random gerador = new Random();
 		lblAcertos.setText(String.valueOf(acertos));
 		lblErros.setText(String.valueOf(erros));
-		if(acertos>50) {
+		if(acertos>50 || nivel==1) {
 			valorA = gerador.nextInt(AMax-2)+2;
 			lblValorA.setText(String.valueOf(valorA));
 			valorB = gerador.nextInt(BMax-2)+2;
 			lblValorB.setText(String.valueOf(valorB));
-			if(acertos>60) {
+			if(acertos>60 || (nivel==1 && acertos>30)) {
 				valorA = gerador.nextInt(AMax-3)+3;
 				lblValorA.setText(String.valueOf(valorA));
 				valorB = gerador.nextInt(BMax-3)+3;
 				lblValorB.setText(String.valueOf(valorB));
 			}
-		}else {
+		}else{
 			valorA = gerador.nextInt(AMax);
 			lblValorA.setText(String.valueOf(valorA));
 			valorB = gerador.nextInt(BMax);

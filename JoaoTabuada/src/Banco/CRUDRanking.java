@@ -88,4 +88,18 @@ public class CRUDRanking {
 		}	
 		return resposta;
 	}
+	
+	public boolean removeZerado(){
+		boolean resposta = true;
+		String sql = "DELETE FROM ranking WHERE pontos < 1";
+		try {
+			PreparedStatement stmt = c.prepareStatement(sql);
+			resposta = stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return resposta;
+	}
 }

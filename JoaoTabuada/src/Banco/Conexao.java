@@ -35,7 +35,7 @@ public class Conexao {
 			try
 			{
 				//remoto 189.91.101.54 
-				c = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/tabuada","root","root");
+				c = DriverManager.getConnection("jdbc:mysql://189.91.101.54:3306/tabuada","root","root");
 				// 127.0.0.1   192.168.10.32
 				System.out.println("Banco Conectado!");
 			} catch (SQLException e) {
