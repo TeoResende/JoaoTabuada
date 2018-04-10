@@ -23,6 +23,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import Banco.CRUDRanking;
+import Banco.Conexao;
+
 import java.awt.event.WindowAdapter;
 
 public class Tabuada {
@@ -93,8 +95,15 @@ public class Tabuada {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				new CRUDRanking().removeZerado();
+				new CRUDRanking().removeZerado(id);
 				System.out.println("Removendo zerados");
+				try {
+					CRUDRanking.c.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, e);
+				}
 			}
 		});
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -132,6 +141,7 @@ public class Tabuada {
 			id = dados.getInt("idRanking");
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null,"pega id "+e1);
 		}
 
 		frame.setTitle(" ..::  MaxTabuadaGame  ::..");
@@ -400,7 +410,6 @@ public class Tabuada {
 		lblJogador.setBounds(370, 11, 187, 43);
 		frame.getContentPane().add(lblJogador);
 	
-		
 		JLabel label = new JLabel("");
 		label.setOpaque(true);
 		label.setBackground(new Color(0, 0, 128));
@@ -424,6 +433,7 @@ public class Tabuada {
 							Thread.sleep(tempo);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
+							JOptionPane.showMessageDialog(null,"Progress "+ e);
 						}
 						progressBar.setValue(progressBar.getValue()-1);
 						if(progressBar.getValue()<=1) {
@@ -455,6 +465,7 @@ public class Tabuada {
 						Thread.sleep(8000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+						JOptionPane.showMessageDialog(null,"Delay "+e);
 					}
 				}
 				
@@ -519,6 +530,7 @@ public class Tabuada {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Ranking " +e);
 			}
 	}
 	

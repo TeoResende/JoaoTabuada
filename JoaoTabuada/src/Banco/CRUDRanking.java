@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 public class CRUDRanking {
 	
-	Connection c = new Conexao().pegaConexao();
+	public static Connection c = Conexao.pegaConexao();
 	
 	public boolean novoJogador(String nome,int pontos) {
 		boolean resposta = true;
@@ -21,6 +23,9 @@ public class CRUDRanking {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e);
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro grave");
+			System.exit(1);
 		}
 		return resposta;
 	}
@@ -36,6 +41,7 @@ public class CRUDRanking {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e);
 		}
 		return ranking;
 	}
@@ -51,6 +57,7 @@ public class CRUDRanking {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, e);
 			}
 		}
 		return resposta;
@@ -67,6 +74,7 @@ public class CRUDRanking {
 			System.out.println("Dados selecionados");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e);
 			System.out.println("Erro na consulta!");
 			return null;
 		}			
@@ -85,20 +93,23 @@ public class CRUDRanking {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+			JOptionPane.showMessageDialog(null, e);
+		}
 		return resposta;
 	}
 	
-	public boolean removeZerado(){
+	public boolean removeZerado(int id){
 		boolean resposta = true;
-		String sql = "DELETE FROM ranking WHERE pontos < 1";
+		String sql = "DELETE FROM ranking WHERE idRanking = ?";
 		try {
 			PreparedStatement stmt = c.prepareStatement(sql);
+			stmt.setInt(1, id);
 			resposta = stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e);
 		}	
 		return resposta;
 	}

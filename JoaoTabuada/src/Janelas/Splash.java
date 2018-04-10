@@ -53,7 +53,7 @@ public class Splash {
 		
 		new Thread(proximaJanela).start();	//inicia a tarefa paralela
 	}
-	
+
 	Runnable proximaJanela = new Runnable() {	
 		@Override
 		public void run() {
