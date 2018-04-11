@@ -269,14 +269,17 @@ public class Tabuada {
 				   		if(teste == 0)
 				   		{
 //					   		Tabuada.main(new String[]{nome,Integer.toString(id)});	
+				   			desligar=1;
 				   			JOptionPane.showMessageDialog(null, "O Jogo está sendo reiniciado...");
 					   		Tabuada.main(new String[]{nome});	
 					   		frame.dispose();
+					   		return;
 					   		
 				   		}
 				   		else
 				   		{
 					   		frame.dispose();
+					   		return;
 				   		}
 				   		
 
@@ -382,28 +385,25 @@ public class Tabuada {
 		tfResposta.setHorizontalAlignment(SwingConstants.CENTER);
 		tfResposta.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent arg0) {	
-				if(arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-					if(jogando==true) {
-						jogando = false;
-						if(enter == 0)
-							btnVerificar.doClick();
-					}
-				}
-			}
-			@Override
 			public void keyTyped(KeyEvent e) {
+				if(tfResposta.getText().length()>1) {
+					e.consume(); //maximo 2 caracteres na casa
+				}
 				 if (e.getKeyChar() == e.VK_BACK_SPACE || (e.getKeyChar() == e.VK_0)|| (e.getKeyChar() == e.VK_1)|| (e.getKeyChar() == e.VK_2) 
 		            || (e.getKeyChar() == e.VK_3)|| (e.getKeyChar() == e.VK_4)|| (e.getKeyChar() == e.VK_5)|| (e.getKeyChar() == e.VK_6)|| (e.getKeyChar() == e.VK_7)
 		            || (e.getKeyChar() == e.VK_8)|| (e.getKeyChar() == e.VK_9)||(e.getKeyChar() == e.VK_ENTER))
 		         {     
-					 //pega o valor
+					 if(enter == 0 && e.getKeyChar() == e.VK_ENTER )
+							if(!(tfResposta.getText().isEmpty())) {
+								btnVerificar.doClick(); //so clica se não estiver vazio
+					 }
 		         }
 				 else
 		         {
 		            e.consume();
 		         }
 			}
+			
 		});
 		tfResposta.setFont(new Font("Arial Black", Font.BOLD, 40));
 		tfResposta.setBounds(477, 231, 151, 69);
@@ -513,13 +513,12 @@ public class Tabuada {
 	public void atualizaRanking()
 	{
 
-			new CRUDRanking().atualizaPontos(id, acertos);
+			new CRUDRanking().atualizaPontos2(id, acertos);
 			ResultSet ranking = new CRUDRanking().SelecionaRanking();	
 			textPaneRanking.setText(null);
 			try {
 				int var = 0;
 				if(ranking.last()) {
-					
 					var = Integer.parseInt(ranking.getString("pontos"));
 					if(var<10)
 					{
@@ -539,9 +538,8 @@ public class Tabuada {
 										
 				}
 				
-				for(int x=0;x<14;x++) {
+				for(int x=0;x<45;x++) {
 					if(ranking.previous()) {
-						
 						var = Integer.parseInt(ranking.getString("pontos"));
 						if(var<10)
 						{

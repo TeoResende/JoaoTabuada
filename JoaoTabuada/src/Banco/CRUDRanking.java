@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 public class CRUDRanking {
 	
 	public static Connection c = Conexao.pegaConexao();
+	int acertos,id;
 	
 	public boolean novoJogador(String nome,int pontos) {
 		boolean resposta = true;
@@ -81,6 +82,8 @@ public class CRUDRanking {
 		return dados;
 	}
 	
+	
+	
 	public boolean atualizaPontos(int id,int acertos){
 		boolean resposta = true;
 		String sql = "UPDATE ranking SET pontos=? WHERE idRanking = ?";
@@ -113,4 +116,28 @@ public class CRUDRanking {
 		}	
 		return resposta;
 	}
+	
+	public void atualizaPontos2(int id,int acertos) {
+		this.acertos = acertos;
+		this.id = id;
+		new Thread(atualizaPontos).start(); 
+	}
+	
+	Runnable atualizaPontos = new Runnable() {
+		@Override
+		public void run() {
+			String sql = "UPDATE ranking SET pontos=? WHERE idRanking = ?";
+			try {
+				PreparedStatement stmt = c.prepareStatement(sql);
+				stmt.setInt(1, acertos);
+				stmt.setInt(2, id);
+				stmt.execute();
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, e);
+			}
+		}
+	};
 }
