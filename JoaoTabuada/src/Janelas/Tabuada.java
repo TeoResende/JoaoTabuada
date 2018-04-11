@@ -583,6 +583,9 @@ public class Tabuada {
 			}
 		}
 		respostaCorreta = valorA * valorB;
+		vetorA[erros] = valorA;
+		vetorB[erros] = valorB;
+		
 		progressBar.setValue(100);
 		jogando = true;
 		tfResposta.requestFocus();
