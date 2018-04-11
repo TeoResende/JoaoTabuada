@@ -53,6 +53,7 @@ public class Tabuada {
 	int tempo = 300;
 	boolean jogando = false;
 	int jogoEmAndamento = 0;
+	int desligar = 1;
 	int enter = 0;
 	int ativado = 0;
 	int vetorA[] = new int[11];
@@ -98,8 +99,11 @@ public class Tabuada {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				new CRUDRanking().removeZerado(id);
-				System.out.println("Removendo zerados");
+				desligar = 0;
+				if(acertos < 10) {
+					new CRUDRanking().removeZerado(id);
+					System.out.println("Removendo zerados");
+				}
 				try {
 					CRUDRanking.c.close();
 				} catch (SQLException e) {
@@ -220,6 +224,7 @@ public class Tabuada {
 					
 					if(erros>9 && enter == 1)
 					{
+						desligar = 0;
 						jogando = false;
 						jogoEmAndamento = 0;
 						
@@ -445,7 +450,7 @@ public class Tabuada {
 	Runnable progress = new Runnable() {
 	@Override
 		public void run() {		
-			while(jogoEmAndamento == 1)
+			while((jogoEmAndamento == 1)&&(desligar==1))
 			{
 				progressBar.setValue(100);
 					while(jogando == true && jogoEmAndamento == 1) {
@@ -455,11 +460,17 @@ public class Tabuada {
 							e.printStackTrace();
 							JOptionPane.showMessageDialog(null,"Progress "+ e);
 						}
+						
+						if (desligar == 0) break;
+						
 						progressBar.setValue(progressBar.getValue()-1);
 						if(progressBar.getValue()<=1) {
 							break;
 						}
 					}
+					
+				if (desligar == 0) break;
+				
 				jogando = false;
 				if(enter == 0)
 					btnVerificar.doClick();
@@ -471,7 +482,7 @@ public class Tabuada {
 		@Override
 			public void run()
 			{	
-				while(true) // (jogoEmAndamento == 1) 
+				while(desligar == 1) // (jogoEmAndamento == 1) 
 				{	
 					while(ativado == 1);
 					if(ativado == 0 )
@@ -481,12 +492,15 @@ public class Tabuada {
 						ativado = 0;
 					}
 					
+					if (desligar == 0) break;
+					
 					try{
 						Thread.sleep(8000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 						JOptionPane.showMessageDialog(null,"Delay "+e);
 					}
+					
 				}
 				
 			}
@@ -573,12 +587,12 @@ public class Tabuada {
 		}else{
 			valorA = gerador.nextInt(AMax);
 			lblValorA.setText(String.valueOf(valorA));
-			valorB = gerador.nextInt(BMax);
+			valorB = gerador.nextInt(BMax-1)+1;
 			lblValorB.setText(String.valueOf(valorB));
 			if(acertos>20) {
 				valorA = gerador.nextInt(AMax-1)+1;
 				lblValorA.setText(String.valueOf(valorA));
-				valorB = gerador.nextInt(BMax-1)+1;
+				valorB = gerador.nextInt(BMax-2)+2;
 				lblValorB.setText(String.valueOf(valorB));
 			}
 		}
