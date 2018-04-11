@@ -55,6 +55,8 @@ public class Tabuada {
 	int jogoEmAndamento = 0;
 	int enter = 0;
 	int ativado = 0;
+	int vetorA[] = new int[11];
+	int vetorB[] = new int[11];
 	public static int nivel = 0;
 
 	/**
@@ -238,12 +240,25 @@ public class Tabuada {
 						
 			//			int teste = 1;
 						int teste = JOptionPane.showConfirmDialog(
-				   				null, "\n     ACERTOS ( "+Integer.toString(acertos+errosJogador)+" ):   "
-				   		        +Integer.toString(acertos)+"\n     MÉDIA   (100%):   "
-				   				+Integer.toString((acertos*100/(acertos+errosJogador)))+" %"+"\n\n DESEJA REINICIAR O JOGO?               \n\n","                             "
-				   				+ " ..::  "+nome+"  ::..",JOptionPane.YES_NO_OPTION);
-				
-						System.out.println(" Fim = "+Integer.toString(teste));
+							null, "\n                  ACERTOS ( "+Integer.toString(acertos+errosJogador)+" ):   "
+							+Integer.toString(acertos)+"\n                  MÉDIA   (100%):   "
+							+Integer.toString((acertos*100/(acertos+errosJogador)))+" %\n\n"
+			 				+"Observe o que você precisa melhorar:                    \n                        "
+		     				+Integer.toString(vetorA[0])+"  x  "+Integer.toString(vetorB[0])+"  =  "+Integer.toString(vetorA[0]*vetorB[0])+"\n                        "          //    erros                                           
+							+Integer.toString(vetorA[1])+"  x  "+Integer.toString(vetorB[1])+"  =  "+Integer.toString(vetorA[1]*vetorB[1])+"\n                        "
+				  		    +Integer.toString(vetorA[2])+"  x  "+Integer.toString(vetorB[2])+"  =  "+Integer.toString(vetorA[2]*vetorB[2])+"\n                        "
+							+Integer.toString(vetorA[3])+"  x  "+Integer.toString(vetorB[3])+"  =  "+Integer.toString(vetorA[3]*vetorB[3])+"\n                        "
+							+Integer.toString(vetorA[4])+"  x  "+Integer.toString(vetorB[4])+"  =  "+Integer.toString(vetorA[4]*vetorB[4])+"\n                        "
+							+Integer.toString(vetorA[5])+"  x  "+Integer.toString(vetorB[5])+"  =  "+Integer.toString(vetorA[5]*vetorB[5])+"\n                        "
+							+Integer.toString(vetorA[6])+"  x  "+Integer.toString(vetorB[6])+"  =  "+Integer.toString(vetorA[6]*vetorB[6])+"\n                        "
+							+Integer.toString(vetorA[7])+"  x  "+Integer.toString(vetorB[7])+"  =  "+Integer.toString(vetorA[7]*vetorB[7])+"\n                        "
+							+Integer.toString(vetorA[8])+"  x  "+Integer.toString(vetorB[8])+"  =  "+Integer.toString(vetorA[8]*vetorB[8])+"\n                        "
+							+Integer.toString(vetorA[9])+"  x  "+Integer.toString(vetorB[9])+"  =  "+Integer.toString(vetorA[9]*vetorB[9])+"\n                        "
+						    +"\n           "
+							+ "DESEJA REINICIAR O JOGO?               \n\n","                                     "
+							+ "     ..::  "+nome+"  ::..",JOptionPane.YES_NO_OPTION);	
+						
+			//			System.out.println(" Fim = "+Integer.toString(teste));
 						
 						erros = 0;
 				   		if(teste == 0)
