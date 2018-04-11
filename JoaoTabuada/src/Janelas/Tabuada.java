@@ -26,6 +26,7 @@ import Banco.CRUDRanking;
 import Banco.Conexao;
 
 import java.awt.event.WindowAdapter;
+import javax.swing.JScrollPane;
 
 public class Tabuada {
 
@@ -267,7 +268,7 @@ public class Tabuada {
 			}
 		});
 		btnVerificar.setFont(new Font("Swis721 BlkEx BT", Font.BOLD, 35));
-		btnVerificar.setBounds(88, 344, 543, 114);
+		btnVerificar.setBounds(76, 344, 518, 114);
 		frame.getContentPane().add(btnVerificar);
 		
 		progressBar = new JProgressBar();
@@ -295,7 +296,7 @@ public class Tabuada {
 		lblResultado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblResultado.setForeground(Color.DARK_GRAY);
 		lblResultado.setFont(new Font("Verdana", Font.BOLD, 30));
-		lblResultado.setBounds(467, 155, 236, 63);
+		lblResultado.setBounds(434, 155, 236, 63);
 		frame.getContentPane().add(lblResultado);
 		
 		lblValorA = new JLabel("000");
@@ -322,12 +323,16 @@ public class Tabuada {
 		textPaneRanking.setForeground(Color.WHITE);
 		textPaneRanking.setFont(new Font("Courier New", Font.BOLD, 16));
 		textPaneRanking.setEditable(false);
-		textPaneRanking.setBounds(719, 177, 340, 293);
-		frame.getContentPane().add(textPaneRanking);
+		textPaneRanking.setBounds(690, 177, 340, 293);
+		//frame.getContentPane().add(textPaneRanking);
+		
+		scrollPane = new JScrollPane(textPaneRanking);
+		scrollPane.setBounds(690, 177, 340, 293);
+		frame.getContentPane().add(scrollPane);
 		
 		JLabel lblRanking = new JLabel("RANKING");
 		lblRanking.setFont(new Font("Swis721 BlkEx BT", Font.BOLD | Font.ITALIC, 25));
-		lblRanking.setBounds(719, 133, 187, 44);
+		lblRanking.setBounds(690, 130, 187, 44);
 		frame.getContentPane().add(lblRanking);
 		
 		btnReset = new JButton("Reset");
@@ -350,7 +355,7 @@ public class Tabuada {
 				
 			}
 		});
-		btnReset.setBounds(974, 147, 85, 21);
+		btnReset.setBounds(945, 147, 85, 21);
 		frame.getContentPane().add(btnReset);
 		
 		tfResposta = new JTextField();
@@ -381,14 +386,14 @@ public class Tabuada {
 			}
 		});
 		tfResposta.setFont(new Font("Arial Black", Font.BOLD, 40));
-		tfResposta.setBounds(510, 231, 151, 69);
+		tfResposta.setBounds(477, 231, 151, 69);
 		frame.getContentPane().add(tfResposta);
 		tfResposta.setColumns(10);
 		
-		lblNewLabel_1 = new JLabel("Desenvolvedor: resendenetto@yahoo.com.br ");
+		lblNewLabel_1 = new JLabel("Todos Direitos reservados \u00E0 Unidade Integrada SESI SENAI de S\u00E3o Gon\u00E7alo do Sapuca\u00ED \u2013 MG");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Swis721 BlkEx BT", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(10, 490, 706, 13);
+		lblNewLabel_1.setBounds(10, 485, 706, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
@@ -401,7 +406,7 @@ public class Tabuada {
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setForeground(new Color(220, 20, 60));
 		label_1.setFont(new Font("Segoe UI Black", Font.BOLD, 70));
-		label_1.setBounds(415, 225, 69, 69);
+		label_1.setBounds(390, 219, 69, 69);
 		frame.getContentPane().add(label_1);
 		
 		lblJogador = new JLabel("Jogador :");
@@ -474,6 +479,7 @@ public class Tabuada {
 	private JLabel label_1;
 	private JLabel lblJogador;
 	private JLabel lblNome;
+	private JScrollPane scrollPane;
 	
 	public void atualizaRanking()
 	{

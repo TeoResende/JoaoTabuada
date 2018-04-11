@@ -29,6 +29,8 @@ public class Menu {
 	private JRadioButton rbFacil;
 	private JRadioButton rbMedio;
 	private JRadioButton rbDificil;
+	private JLabel fechar;
+	private JLabel lblMsgTamanhoMinimo;
 
 	/**
 	 * Launch the application.
@@ -71,7 +73,7 @@ public class Menu {
 		lblJogador.setForeground(Color.WHITE);
 		lblJogador.setHorizontalAlignment(SwingConstants.CENTER);
 		lblJogador.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		lblJogador.setBounds(10, 38, 296, 51);
+		lblJogador.setBounds(293, 60, 358, 51);
 		frame.getContentPane().add(lblJogador);
 		
 		tfNomeJogador = new JTextField();
@@ -80,6 +82,12 @@ public class Menu {
 			public void keyPressed(KeyEvent arg0) {
 				if(arg0.getKeyCode() == KeyEvent.VK_ENTER) {
 					jogar();
+				}
+			}
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if(tfNomeJogador.getText().length()>9) {
+					arg0.consume();
 				}
 			}
 		});
@@ -103,7 +111,7 @@ public class Menu {
 		});
 		tfNomeJogador.setHorizontalAlignment(SwingConstants.CENTER);
 		tfNomeJogador.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		tfNomeJogador.setBounds(316, 38, 323, 51);
+		tfNomeJogador.setBounds(293, 134, 358, 51);
 		frame.getContentPane().add(tfNomeJogador);
 		tfNomeJogador.setColumns(10);
 
@@ -148,14 +156,43 @@ public class Menu {
 		ImageIcon icone = new ImageIcon(Splash.class.getResource("/Matematica.jpg"));
 		icone.setImage(icone.getImage().getScaledInstance(frame.getWidth(), frame.getHeight(), 100));
 		
+		fechar = new JLabel();
+		fechar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				System.exit(0);
+			}
+		});
+		ImageIcon icone3 = new ImageIcon(Splash.class.getResource("/X.png"));
+		icone3.setImage(icone3.getImage().getScaledInstance(50, 50, 100));
+		fechar.setIcon(icone3);
+		fechar.setBounds(620, 0, 50, 50);
+		frame.getContentPane().add(fechar);
+		
+		JLabel lblMaxCaracteres = new JLabel("Max 10 caracteres");
+		lblMaxCaracteres.setForeground(Color.ORANGE);
+		lblMaxCaracteres.setBounds(533, 184, 115, 13);
+		frame.getContentPane().add(lblMaxCaracteres);
+		
+		lblMsgTamanhoMinimo = new JLabel("O nome deve conter mais que dois caracteres");
+		lblMsgTamanhoMinimo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMsgTamanhoMinimo.setVisible(false);
+		lblMsgTamanhoMinimo.setForeground(Color.ORANGE);
+		lblMsgTamanhoMinimo.setBounds(293, 117, 355, 18);
+		frame.getContentPane().add(lblMsgTamanhoMinimo);
+		
 		JLabel imagem = new JLabel();
-		imagem.setIcon(new ImageIcon(Menu.class.getResource("/Matematica.jpg")));
+		ImageIcon icone4 = new ImageIcon(Menu.class.getResource("/Matematica2.jpg"));
+		icone4.setImage(icone4.getImage().getScaledInstance(frame.getWidth(), frame.getHeight(), 100));
+		imagem.setIcon(icone4);
 		imagem.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 		frame.getContentPane().add(imagem);
 	}
 	
 	public void jogar() {
-		if(tfNomeJogador.getText().length()<1) {
+		if(tfNomeJogador.getText().length()<3) {
+			lblMsgTamanhoMinimo.setVisible(true);
 			return;
 		}
 		if(rbFacil.isSelected()) {
