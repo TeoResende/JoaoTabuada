@@ -538,6 +538,7 @@ public class Tabuada {
 										
 				}
 				
+				
 				for(int x=0;x<45;x++) {
 					if(ranking.previous()) {
 						var = Integer.parseInt(ranking.getString("pontos"));
